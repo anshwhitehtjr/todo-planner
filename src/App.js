@@ -19,7 +19,7 @@ const App = () => {
   return (
     <>
       <Router>
-        <Navbar />
+        <Navbar title="To-Do Planner" />
         <Alert alert={ isAlert } />
         <Switch>
           <Route exact path="/">
