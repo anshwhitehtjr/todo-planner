@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Draggable } from 'react-beautiful-dnd';
 import { Droppable, DragDropContext } from 'react-beautiful-dnd';
 import { CardItem } from './Components';
 
@@ -23,6 +22,7 @@ export const Home = () => {
         },
     ];
     const [cards, setCards] = useState(cardsInit);
+    const [boards, setBoards] = useState();
 
     const handleDragEnd = result => {
         if (!result.destination) return;
@@ -36,27 +36,17 @@ export const Home = () => {
     return (
         <div className='container mx-auto'>
             <DragDropContext onDragEnd={ handleDragEnd }>
-                <Droppable droppableId='cards'>
+                <Droppable droppableId='cards' direction='horizontal'>
                     {
                         provided => (
-                            <ul ref={ provided.innerRef } { ...provided.droppableProps } className="grid grid-row-4 gap-2">
+                            <div ref={ provided.innerRef } { ...provided.droppableProps } className="grid grid-cols-4 gap-2">
                                 {
                                     cards.map((card, index) => {
-                                        return (
-                                            <Draggable key={ card.id } draggableId={ card.id } index={ index } >
-                                                {
-                                                    provided => (
-                                                        <li ref={ provided.innerRef } { ...provided.draggableProps } { ...provided.dragHandleProps } className='p-5 rounded-lg border-2 border-gray-900 shadow-xl'>
-                                                            <p>{ card.desc }</p>
-                                                        </li>
-                                                    )
-                                                }
-                                            </Draggable>
-                                        );
+                                        return <CardItem card={ card } index={ index } />;
                                     })
                                 }
                                 { provided.placeholder }
-                            </ul>
+                            </div>
                         )
                     }
                 </Droppable>

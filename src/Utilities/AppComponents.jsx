@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Navbar = ({ title }) => {
     return <header className="text-gray-600 border-b body-font">
@@ -7,8 +8,8 @@ export const Navbar = ({ title }) => {
                 <span className="ml-3 text-xl">{ title }</span>
             </a>
             <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a className="mr-5 cursor-pointer hover:text-gray-900">Home</a>
-                <a className="mr-5 cursor-pointer hover:text-gray-900">About</a>
+                <Link to='/' className="mr-5 cursor-pointer hover:text-gray-900">Home</Link>
+                <Link to='/about' className="mr-5 cursor-pointer hover:text-gray-900">About</Link>
             </nav>
         </div>
     </header>;
