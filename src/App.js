@@ -12,9 +12,9 @@ const App = () => {
   const context = useContext(appContext);
   const { isAlert, showAlert } = context;
 
-  useEffect(() => {
-    showAlert("Hello, World!", "indigo");
-  }, []);
+  // useEffect(() => {
+  //   showAlert("Hello, World!", "indigo");
+  // }, []);
 
   return (
     <>

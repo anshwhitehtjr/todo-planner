@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { Board, CardItem } from './Components';
 import { Droppable, DragDropContext } from 'react-beautiful-dnd';
-import { CardItem } from './Components';
 
 export const Home = () => {
     const cardsInit = [
@@ -20,13 +20,30 @@ export const Home = () => {
             id: "fourthtodo",
             desc: "This is a desc 4"
         },
+        {
+            id: "fifthtodo",
+            desc: "This is a desc 5"
+        },
+        {
+            id: "sixthtodo",
+            desc: "This is a desc 6"
+        },
+    ];
+    const boardsInit = [
+        {
+            name: "Done",
+            cardID: "thirdtodo"
+        },
+        {
+            name: "Doing",
+            cardID: "firsttodo"
+        },
     ];
     const [cards, setCards] = useState(cardsInit);
-    const [boards, setBoards] = useState();
+    const [boards, setBoards] = useState(boardsInit);
 
-    const handleDragEnd = result => {
+    const updateCardState = result => {
         if (!result.destination) return;
-
         const items = Array.from(cards);
         const [reorderedItems] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItems);
@@ -34,24 +51,29 @@ export const Home = () => {
     };
 
     return (
-        <div className='container mx-auto'>
-            <DragDropContext onDragEnd={ handleDragEnd }>
-                <Droppable droppableId='cards' direction='horizontal'>
-                    {
-                        provided => (
-                            <div ref={ provided.innerRef } { ...provided.droppableProps } className="grid grid-cols-4 gap-2">
-                                {
-                                    cards.map((card, index) => {
-                                        return <CardItem card={ card } index={ index } />;
-                                    })
-                                }
-                                { provided.placeholder }
-                            </div>
-                        )
-                    }
-                </Droppable>
-            </DragDropContext>
-        </div >
+        <>
+            {/* <DragDropContext onDragEnd={ updateCardState }>
+                {
+                    boards.map((e, index) => {
+                        return <Droppable key={ e.name } droppableId={ e.name } direction='horizontal'>
+                            {
+                                provided => (
+                                    <div ref={ provided.innerRef } { ...provided.droppableProps } className="grid grid-cols-4 gap-2">
+                                        {
+                                            cards.map((card, index) => {
+                                                return <CardItem card={ card } index={ index } />;
+                                            })
+                                        }
+                                        { provided.placeholder }
+                                    </div>
+                                )
+                            }
+                        </Droppable>;
+                    })
+                }
+            </DragDropContext> */}
+            <Board cards={ cards } />
+        </ >
     );
 };
 
